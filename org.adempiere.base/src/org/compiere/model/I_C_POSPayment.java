@@ -100,6 +100,32 @@ public interface I_C_POSPayment
 	  * Account at the Bank
 	  */
 	public int getC_BankAccount_ID();
+	
+	/** Column name C_ConversionType_ID */
+    public static final String COLUMNNAME_C_ConversionType_ID = "C_ConversionType_ID";
+
+	/** Set ConversionType.
+	  * ConversionType identifier
+	  */
+	public void setC_ConversionType_ID (int C_ConversionType_ID);
+
+	/** Get ConversionType.
+	  * ConversionType identifier
+	  */
+	public int getC_ConversionType_ID();
+	
+	/** Column name C_Currency_ID */
+    public static final String COLUMNNAME_C_Currency_ID = "C_Currency_ID";
+
+	/** Set Currency.
+	  * Currency identifier
+	  */
+	public void setC_Currency_ID (int C_Currency_ID);
+
+	/** Get Currency.
+	  * Currency identifier
+	  */
+	public int getC_Currency_ID();
 
     /** Column name CheckNo */
     public static final String COLUMNNAME_CheckNo = "CheckNo";
