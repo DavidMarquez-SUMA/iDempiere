@@ -2049,8 +2049,12 @@ public class MOrder extends X_C_Order implements DocAction
 			.setOnlyActiveRecords(true)
 			.list();
 		BigDecimal totalPOSPayments = Env.ZERO; 
+		BigDecimal payamt = Env.ZERO;
 		for (X_C_POSPayment pp : pps) {
-			totalPOSPayments = totalPOSPayments.add(pp.getPayAmt());
+			 payamt = MConversionRate.convert(getCtx(), pp.getPayAmt(), 
+					pp.getC_Currency_ID(), getC_Currency_ID(), getDateAcct(), 
+					getC_ConversionType_ID(), getAD_Client_ID(), getAD_Org_ID());
+			totalPOSPayments = totalPOSPayments.add(payamt);
 		}
 		if (totalPOSPayments.compareTo(grandTotal) != 0)
 			return "@POSPaymentDiffers@ - @C_POSPayment_ID@=" + totalPOSPayments + ", @GrandTotal@=" + grandTotal;
@@ -2113,11 +2117,12 @@ public class MOrder extends X_C_Order implements DocAction
 			payment.setSM_Usuario_ID(this.getSM_Usuario_ID());
 			payment.setSalesRep_ID(this.getSalesRep_ID());
 			payment.setC_BankAccount_ID( pp.getC_BankAccount_ID() > 0 ? pp.getC_BankAccount_ID() : ba.getC_BankAccount_ID() );
+			payment.setC_Currency_ID( pp.getC_Currency_ID() != this.getC_Currency_ID() ? pp.getC_Currency_ID() : this.getC_Currency_ID() );
+			payment.setC_ConversionType_ID( pp.getC_ConversionType_ID() != this.getC_ConversionType_ID() ? pp.getC_ConversionType_ID() : this.getC_ConversionType_ID() );
 			
 			payment.setC_Invoice_ID(lastInvoice.getC_Invoice_ID());
 			// payment.setC_Order_ID(this.getC_Order_ID()); / do not set order to avoid the prepayment flag
 			payment.setC_DocType_ID(doctype.getC_DocType_ID());
-			payment.setC_Currency_ID(this.getC_Currency_ID());
 
 			payment.setPayAmt(pp.getPayAmt());
 
