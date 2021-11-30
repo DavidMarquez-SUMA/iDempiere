@@ -342,14 +342,7 @@ public class MInvoice extends X_C_Invoice implements DocAction
 		setSalesRep_ID(order.getSalesRep_ID());
 		//
 		setC_BPartner_ID(order.getBill_BPartner_ID());
-		
-		/**
-		 * Author: David Marquez
-		 * Email: davidmarsant@gmail.com
-		 * Date: 2021/11/16
-		 * 
-		 * This is the final client ID
-		 */
+		// Final Client
 		setSM_Usuario_ID (order.getSM_Usuario_ID()); 
 		
 		setC_BPartner_Location_ID(order.getBill_Location_ID());
