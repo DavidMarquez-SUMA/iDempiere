@@ -2051,10 +2051,14 @@ public class MOrder extends X_C_Order implements DocAction
 		BigDecimal totalPOSPayments = Env.ZERO; 
 		BigDecimal payamt = Env.ZERO;
 		for (X_C_POSPayment pp : pps) {
-			 payamt = MConversionRate.convert(getCtx(), pp.getPayAmt(), 
+			 payamt = pp.getPayAmt();
+			 if(!pp.IsPrepayment()) // Avoid unnecessary amounts
+				 payamt = payamt.add(pp.getDiscountAmt()).add(pp.getOverUnderAmt()).add(pp.getWriteOffAmt());
+	
+			 payamt = MConversionRate.convert(getCtx(), payamt, 
 					pp.getC_Currency_ID(), getC_Currency_ID(), getDateAcct(), 
-					getC_ConversionType_ID(), getAD_Client_ID(), getAD_Org_ID());
-			totalPOSPayments = totalPOSPayments.add(payamt);
+					pp.getC_ConversionType_ID(), pp.getAD_Client_ID(), pp.getAD_Org_ID());
+			 totalPOSPayments = totalPOSPayments.add(payamt);
 		}
 		if (totalPOSPayments.compareTo(grandTotal) != 0)
 			return "@POSPaymentDiffers@ - @C_POSPayment_ID@=" + totalPOSPayments + ", @GrandTotal@=" + grandTotal;
@@ -2107,6 +2111,7 @@ public class MOrder extends X_C_Order implements DocAction
 			payment.setCheckNo(pp.getCheckNo());
 			payment.setMicr(pp.getMicr());
 			payment.setIsPrepayment(false);
+			payment.setIsOverUnderPayment(pp.IsOverUnderPayment());
 			
 			payment.setDateAcct(this.getDateAcct());
 			payment.setDateTrx(this.getDateOrdered());
@@ -2125,6 +2130,9 @@ public class MOrder extends X_C_Order implements DocAction
 			payment.setC_DocType_ID(doctype.getC_DocType_ID());
 
 			payment.setPayAmt(pp.getPayAmt());
+			payment.setDiscountAmt(pp.getDiscountAmt());
+			payment.setWriteOffAmt(pp.getWriteOffAmt());
+			payment.setOverUnderAmt(pp.IsOverUnderPayment() ? pp.getOverUnderAmt() : Env.ZERO);
 
 			//	Copy statement line reference data
 			payment.setA_Name(pp.getA_Name());

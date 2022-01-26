@@ -271,6 +271,19 @@ public interface I_C_POSPayment
 
 	/** Get Deposit Group	  */
 	public String getDepositGroup();
+	
+	/** Column name DiscountAmt */
+	public static final String COLUMNNAME_DiscountAmt = "DiscountAmt";
+	
+	/** Set Discount amount.
+	  * Discount Amount
+	  */
+	public void setDiscountAmt (BigDecimal DiscountAmt);
+
+	/** Get Discount amount.
+	  * Discount Amount
+	  */
+	public BigDecimal getDiscountAmt();
 
     /** Column name Help */
     public static final String COLUMNNAME_Help = "Help";
@@ -310,6 +323,21 @@ public interface I_C_POSPayment
 	  * The record is active in the system
 	  */
 	public boolean isActive();
+	
+	/**	Column name IsOverUnderPayment */
+	public static final String COLUMNNAME_IsOverUnderPayment = "IsOverUnderPayment";
+	
+	/**
+	 * Set Over or Under Payment.
+	 * The payment is greater or less than it's invoice amount
+	 */
+	public void setIsOverUnderPayment (boolean IsOverUnderPayment);
+	
+	/**
+	 * Get Over or Under Payment.
+	 * The payment is greater or less than it's invoice amount
+	 */
+	public boolean IsOverUnderPayment();
 
     /** Column name IsPostDated */
     public static final String COLUMNNAME_IsPostDated = "IsPostDated";
@@ -319,6 +347,15 @@ public interface I_C_POSPayment
 
 	/** Get Post Dated	  */
 	public boolean isPostDated();
+	
+	/** Column name IsPrepayment */
+    public static final String COLUMNNAME_IsPrepayment = "IsPrepayment";
+
+	/** Set PrePayment	  */
+	public void setIsPrepayment (boolean IsPrepayment);
+
+	/** Get PrePayment	  */
+	public boolean IsPrepayment();
 
     /** Column name Micr */
     public static final String COLUMNNAME_Micr = "Micr";
@@ -332,6 +369,19 @@ public interface I_C_POSPayment
 	  * Combination of routing no, account and check no
 	  */
 	public String getMicr();
+	
+	/** Column name OverUnderAmt */
+	public static final String COLUMNNAME_OverUnderAmt = "OverUnderAmt";
+	
+	/** Set Over or Under amount.
+	  * Over or Under Amount
+	  */
+	public void setOverUnderAmt (BigDecimal OverUnderAmt);
+
+	/** Get Over or Under amount.
+	  * Over or Under Amount
+	  */
+	public BigDecimal getOverUnderAmt();
 
     /** Column name PayAmt */
     public static final String COLUMNNAME_PayAmt = "PayAmt";
@@ -426,4 +476,17 @@ public interface I_C_POSPayment
 	  * Voice Authorization Code from credit card company
 	  */
 	public String getVoiceAuthCode();
+	
+	/** Column name WriteOffAmt */
+	public static final String COLUMNNAME_WriteOffAmt = "WriteOffAmt";
+	
+	/** Set WriteOff amount.
+	  * WriteOff Amount
+	  */
+	public void setWriteOffAmt (BigDecimal WriteOffAmt);
+
+	/** Get WriteOff amount.
+	  * WriteOff Amount
+	  */
+	public BigDecimal getWriteOffAmt();
 }

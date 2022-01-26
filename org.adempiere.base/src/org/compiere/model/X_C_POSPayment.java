@@ -436,6 +436,25 @@ public class X_C_POSPayment extends PO implements I_C_POSPayment, I_Persistent
 	{
 		return (String)get_Value(COLUMNNAME_DepositGroup);
 	}
+	
+	/** Set Discount amount.
+		@param DiscountAmt 
+	  */
+	public void setDiscountAmt (BigDecimal DiscountAmt)
+	{
+		set_Value (COLUMNNAME_DiscountAmt, DiscountAmt);
+	}
+	
+	/** Get Discount amount.
+		@return DiscountAmt
+	  */
+	public BigDecimal getDiscountAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_DiscountAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
+	}
 
 	/** Set Comment/Help.
 		@param Help 
@@ -470,6 +489,27 @@ public class X_C_POSPayment extends PO implements I_C_POSPayment, I_Persistent
 	{
 		return (String)get_Value(COLUMNNAME_IBAN);
 	}
+	
+	/** Set Over or Under Payment
+	 	@param IsOverUnderPayment Over or Under Payment */
+	public void setIsOverUnderPayment(boolean IsOverUnderPayment)
+	{
+		set_Value(COLUMNNAME_IsOverUnderPayment, Boolean.valueOf(IsOverUnderPayment));
+	}
+	
+	/**	Get Over or Under Payment.
+	 	@return Over or Under Payment 	 */
+	public boolean IsOverUnderPayment()
+	{
+		Object oo = get_Value(COLUMNNAME_IsOverUnderPayment);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
 
 	/** Set Post Dated.
 		@param IsPostDated Post Dated	  */
@@ -483,6 +523,27 @@ public class X_C_POSPayment extends PO implements I_C_POSPayment, I_Persistent
 	public boolean isPostDated () 
 	{
 		Object oo = get_Value(COLUMNNAME_IsPostDated);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+	
+	/** Set PrePayment.
+		@param IsPrepayment PrePayment	  */
+	public void setIsPrepayment (boolean IsPrepayment)
+	{
+		set_Value (COLUMNNAME_IsPrepayment, Boolean.valueOf(IsPrepayment));
+	}
+	
+	/** Get PrePayment.
+		@return PrePayment	  */
+	public boolean IsPrepayment () 
+	{
+		Object oo = get_Value(COLUMNNAME_IsPrepayment);
 		if (oo != null) 
 		{
 			 if (oo instanceof Boolean) 
@@ -507,6 +568,25 @@ public class X_C_POSPayment extends PO implements I_C_POSPayment, I_Persistent
 	public String getMicr () 
 	{
 		return (String)get_Value(COLUMNNAME_Micr);
+	}
+
+	/** Set Over or Under amount.
+		@param OverUnderAmt 
+	  */
+	public void setOverUnderAmt (BigDecimal OverUnderAmt)
+	{
+		set_Value (COLUMNNAME_OverUnderAmt, OverUnderAmt);
+	}
+	
+	/** Get Over or Under amount.
+		@return OverUnderAmt
+	  */
+	public BigDecimal getOverUnderAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_OverUnderAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
 	}
 
 	/** Set Payment amount.
@@ -634,5 +714,25 @@ public class X_C_POSPayment extends PO implements I_C_POSPayment, I_Persistent
 	public String getVoiceAuthCode () 
 	{
 		return (String)get_Value(COLUMNNAME_VoiceAuthCode);
+	}
+	
+	/** Set WriteOff amount.
+		@param WriteOff amount 
+		WriteOffAmt
+	  */
+	public void setWriteOffAmt (BigDecimal WriteOffAmt)
+	{
+		set_Value (COLUMNNAME_WriteOffAmt, WriteOffAmt);
+	}
+	
+	/** Get WriteOff amount.
+		@return WriteOffAmt
+	  */
+	public BigDecimal getWriteOffAmt () 
+	{
+		BigDecimal bd = (BigDecimal)get_Value(COLUMNNAME_WriteOffAmt);
+		if (bd == null)
+			 return Env.ZERO;
+		return bd;
 	}
 }
