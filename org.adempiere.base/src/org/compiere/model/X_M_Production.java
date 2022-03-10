@@ -856,4 +856,56 @@ public class X_M_Production extends PO implements I_M_Production, I_Persistent
 			 return 0;
 		return ii.intValue();
 	}
+
+	/** Set Explosion.
+		@param IsComplete 
+		It is explosion
+	  */
+	public void setIsExplosion (boolean IsExplosion)
+	{
+		set_Value (COLUMNNAME_IsExplosion, Boolean.valueOf(IsExplosion));
+	}
+
+	/** Get Explosion.
+		@return It is explosion
+	  */
+	public boolean isExplosion () 
+	{
+		Object oo = get_Value(COLUMNNAME_IsExplosion);
+		if (oo != null) 
+		{
+			 if (oo instanceof Boolean) 
+				 return ((Boolean)oo).booleanValue(); 
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	public I_M_Locator getM_LocatorTo() throws RuntimeException
+    {
+		return (I_M_Locator)MTable.get(getCtx(), I_M_Locator.Table_Name)
+			.getPO(getM_LocatorTo_ID(), get_TrxName());	}
+
+	/** Set Locator To.
+		@param M_LocatorTo_ID 
+		Warehouse Locator To
+	  */
+	public void setM_LocatorTo_ID (int M_LocatorTo_ID)
+	{
+		if (M_LocatorTo_ID < 1) 
+			set_Value (COLUMNNAME_M_LocatorTo_ID, null);
+		else 
+			set_Value (COLUMNNAME_M_LocatorTo_ID, Integer.valueOf(M_LocatorTo_ID));
+	}
+
+	/** Get Locator To.
+		@return Warehouse Locator To
+	  */
+	public int getM_LocatorTo_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_M_LocatorTo_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
 }

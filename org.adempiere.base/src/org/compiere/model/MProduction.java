@@ -236,7 +236,12 @@ public class MProduction extends X_M_Production implements DocAction {
 		line.setLine( lineno );
 		line.setM_Product_ID( finishedProduct.get_ID() );
 		line.setM_Locator_ID( getM_Locator_ID() );
-		line.setMovementQty( getProductionQty());
+		
+		if (isExplosion())
+			line.setQtyUsed( getProductionQty() );
+		else 
+			line.setMovementQty( getProductionQty() );
+			
 		line.setPlannedQty(getProductionQty());
 		
 		line.saveEx();
@@ -316,6 +321,21 @@ public class MProduction extends X_M_Production implements DocAction {
 
 						lineno = lineno + 10;
 						count++;
+					} else if ( isExplosion() ) {
+						if(getM_LocatorTo_ID() > 0)
+							defaultLocator = getM_LocatorTo_ID();
+						
+						MProductionLine BOMLine = null;
+						BOMLine = new MProductionLine( this );
+						BOMLine.setLine( lineno );
+						BOMLine.setM_Product_ID( BOMProduct_ID );
+						BOMLine.setM_Locator_ID( defaultLocator );  
+						BOMLine.setPlannedQty( BOMMovementQty );
+						BOMLine.setMovementQty( BOMMovementQty );
+						BOMLine.saveEx(get_TrxName());
+
+						lineno = lineno + 10;
+						count++;
 					}
 					else
 					{
@@ -351,7 +371,6 @@ public class MProduction extends X_M_Production implements DocAction {
 							if (lineQty.signum() != 0) {
 								if (lineQty.compareTo(BOMMovementQty) > 0)
 									lineQty = BOMMovementQty;
-
 
 								int loc = storages[sl].getM_Locator_ID();
 								int slASI = storages[sl].getM_AttributeSetInstance_ID();

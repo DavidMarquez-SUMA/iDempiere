@@ -517,4 +517,30 @@ public interface I_M_Production
 	public int getUser2_ID();
 
 	public org.compiere.model.I_C_ElementValue getUser2() throws RuntimeException;
+
+    /** Column name IsExplosion */
+    public static final String COLUMNNAME_IsExplosion = "IsExplosion";
+
+	/** Set Active.
+	  * The record is a product explosion
+	  */
+	public void setIsExplosion (boolean IsExplosion);
+
+	/** Get Active.
+	  * The record is a product explosion
+	  */
+	public boolean isExplosion();
+
+    /** Column name M_LocatorTo_ID */
+    public static final String COLUMNNAME_M_LocatorTo_ID = "M_LocatorTo_ID";
+
+	/** Set Locator To.
+	  * Warehouse Locator To
+	  */
+	public void setM_LocatorTo_ID (int M_LocatorTo_ID);
+
+	/** Get Locator To.
+	  * Warehouse Locator To
+	  */
+	public int getM_LocatorTo_ID();
 }

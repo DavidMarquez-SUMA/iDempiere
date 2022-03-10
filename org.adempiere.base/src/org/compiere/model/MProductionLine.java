@@ -106,6 +106,7 @@ public class MProductionLine extends X_M_ProductionLine {
 		
 		if (log.isLoggable(Level.FINEST))	log.log(Level.FINEST, "asi Description is: " + asiString);
 		// create transactions for finished goods
+		String movementType = "";
 		if ( getM_Product_ID() == getEndProduct_ID()) {
 			if (reversalId <= 0  && isAutoGenerateLot && getM_AttributeSetInstance_ID() == 0)
 			{
@@ -130,8 +131,9 @@ public class MProductionLine extends X_M_ProductionLine {
 					errorString.append("Could not save MA for " + toString() + "\n" );
 				}
 			}
+			movementType = isEndProduct() ? "P+" : "P-";
 			MTransaction matTrx = new MTransaction (getCtx(), getAD_Org_ID(), 
-					"P+", 
+					movementType, 
 					getM_Locator_ID(), getM_Product_ID(), asi.get_ID(), 
 					getMovementQty(), date, get_TrxName());
 			matTrx.setM_ProductionLine_ID(get_ID());
@@ -296,8 +298,9 @@ public class MProductionLine extends X_M_ProductionLine {
 					} else {
 						if (log.isLoggable(Level.FINE))log.log(Level.FINE, "Saved MA for " + toString());
 					}
+					movementType = isEndProduct() ? "P+" : "P-";
 					matTrx = new MTransaction (getCtx(), getAD_Org_ID(), 
-							"P-", 
+							movementType, 
 							getM_Locator_ID(), getM_Product_ID(), asi.get_ID(), 
 							lineQty.negate(), date, get_TrxName());
 					matTrx.setM_ProductionLine_ID(get_ID());
@@ -354,10 +357,13 @@ public class MProductionLine extends X_M_ProductionLine {
 
 		if (getM_Production_ID() > 0) 
 		{
-			if ( productionParent.getM_Product_ID() == getM_Product_ID() && productionParent.getProductionQty().signum() == getMovementQty().signum())
-				setIsEndProduct(true);
+			if ( productionParent.getM_Product_ID() == getM_Product_ID() 
+				&& (productionParent.getProductionQty().signum() == getMovementQty().signum() 
+				|| productionParent.getProductionQty().signum() == getQtyUsed().signum())
+			)
+				setIsEndProduct( productionParent.isExplosion() ? false : true );
 			else 
-				setIsEndProduct(false);
+				setIsEndProduct( productionParent.isExplosion() ? true : false);
 		} 
 		else 
 		{
